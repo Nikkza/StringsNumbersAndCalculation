@@ -26,30 +26,21 @@ namespace StringsNumbersAndCalculation
             var s = calcI.ToArray();
             double sum = 0;
             var op = s.Where(x => x == '*' || x == '-' || x == '+' || x == '/').FirstOrDefault();
+            results = ListAsChar(calcI, op);
+            numberOne = Convert.ToInt32(results[0].ToString());
+            numberTwo = Convert.ToInt32(results[1].ToString());
             switch (op.ToString())
             {
                 case "*":
-                    results = ListAsChar(calcI, op);
-                    numberOne = Convert.ToInt32(results[0].ToString());
-                    numberTwo = Convert.ToInt32(results[1].ToString());
                     sum = numberOne * numberTwo;
                     break;
                 case "-":
-                    results = ListAsChar(calcI, op);
-                    numberOne = Converter(results[0].ToString());
-                    numberTwo = Converter(results[1].ToString());
                     sum = numberOne - numberTwo;
                     break;
                 case "+":
-                    results = ListAsChar(calcI, op);
-                    numberOne = Converter(results[0].ToString());
-                    numberTwo = Converter(results[1].ToString());
                     sum = numberOne + numberTwo;
                     break;
                 case "/":
-                    results = ListAsChar(calcI, op);
-                    numberOne = Converter(results[0].ToString());
-                    numberTwo = Converter(results[1].ToString());
                     sum = numberOne / numberTwo;
                     break;
                 default:
@@ -66,7 +57,7 @@ namespace StringsNumbersAndCalculation
             var split = splitToArray.Split(op);
             var charOne = split[0].ToCharArray();
             var charTwo = split[1].ToCharArray();
-            var numberOne = charOne.Where(x => Char.IsDigit(x) && x == '.');
+            var numberOne = charOne.Where(x => Char.IsDigit(x));
             var numberTwo = charTwo.Where(x => Char.IsDigit(x));
             list.Add(string.Join("", numberOne));
             list.Add(string.Join("", numberTwo));
