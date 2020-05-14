@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StringsNumbersAndCalculation
 {
@@ -21,7 +18,6 @@ namespace StringsNumbersAndCalculation
 
         static string CalculateString(string calcI)
         {
-           
             double numberOne = 0;
             double numberTwo = 0;
             var array = calcI.ToArray();
@@ -53,8 +49,8 @@ namespace StringsNumbersAndCalculation
         }
 
         static string[] ListAsString(string splitToArray, char op)
-        {            
-            return string.Join("", splitToArray.ToCharArray().Where( x => Char.IsDigit(x) || x == '*' || x == '-' || x == '+' || x == '/' || x == '.')).Split(op);      
+        {
+            return string.Join("", splitToArray.ToCharArray().Where(x => Char.IsDigit(x) || x == '*' || x == '-' || x == '+' || x == '/' || x == '.')).Split(op);
         }
 
         static double Converter(string convertToDouble)
