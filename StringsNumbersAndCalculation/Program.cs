@@ -18,28 +18,23 @@ namespace StringsNumbersAndCalculation
 
         static string CalculateString(string calcI)
         {
-            double numberOne = 0;
-            double numberTwo = 0;
             double sum = 0;
             var results = GetNumbersFromString(calcI);
             var op = results.Where(x => x == '*' || x == '-' || x == '+' || x == '/').FirstOrDefault();
             var split = results.Split(op);
-            numberOne = Converter(split[0]);
-            numberTwo = Converter(split[1]);
-
             switch (op.ToString())
             {
                 case "*":
-                    sum = numberOne * numberTwo;
+                    sum = Converter(split[0]) * Converter(split[1]);
                     break;
                 case "-":
-                    sum = numberOne - numberTwo;
+                    sum = Converter(split[0]) - Converter(split[1]);
                     break;
                 case "+":
-                    sum = numberOne + numberTwo;
+                    sum = Converter(split[0]) + Converter(split[1]);
                     break;
                 case "/":
-                    sum = numberOne / numberTwo;
+                    sum = Converter(split[0]) / Converter(split[1]);
                     break;
                 default:
                     Console.WriteLine("nothing");
