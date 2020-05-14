@@ -21,15 +21,15 @@ namespace StringsNumbersAndCalculation
 
         static string CalculateString(string calcI)
         {
-            List<string> results;
+            List<double> results;
             double numberOne = 0;
             double numberTwo = 0;
             var array = calcI.ToArray();
             double sum = 0;
             var op = array.Where(x => x == '*' || x == '-' || x == '+' || x == '/').FirstOrDefault();
             results = ListAsChar(calcI, op);
-            numberOne = Converter(results[0]);
-            numberTwo = Converter(results[1]);
+            numberOne = results[0];
+            numberTwo = results[1];
          
             switch (op.ToString())
             {
@@ -52,16 +52,13 @@ namespace StringsNumbersAndCalculation
             return $"Sum: {Math.Round(sum)}";
         }
 
-        static List<string> ListAsChar(string splitToArray, char op)
+        static List<double> ListAsChar(string splitToArray, char op)
         {
-            var list = new List<string>();
-            var split = splitToArray.Split(op);
-            var charOne = split[0].ToCharArray();
-            var charTwo = split[1].ToCharArray();
-            var numberOne = charOne.Where(x => Char.IsDigit(x) || x == '.');
-            var numberTwo = charTwo.Where(x => Char.IsDigit(x) || x == '.');
-            list.Add(string.Join("", numberOne));
-            list.Add(string.Join("", numberTwo));
+            var list = new List<double>();
+            var getNumbers = string.Join("", splitToArray.ToCharArray().Where( x => Char.IsDigit(x) || x == '*' || x == '-' || x == '+' || x == '/' || x == '.'));
+            var spliNumbers = getNumbers.Split(op);
+            list.Add(Converter(spliNumbers[0]));
+            list.Add(Converter(spliNumbers[1]));
 
             return list;
         }
