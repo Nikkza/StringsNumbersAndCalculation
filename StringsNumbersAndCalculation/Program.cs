@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,22 +14,23 @@ namespace StringsNumbersAndCalculation
             while (true)
             {
                 var calcString = Console.ReadLine();
-                var sun = CalculateString(calcString);
-                Console.WriteLine(sun);
+                var sum = CalculateString(calcString);
+                Console.WriteLine(sum);
             }
         }
 
         static string CalculateString(string calcI)
         {
             List<string> results;
-            int numberOne = 0;
-            int numberTwo = 0;
-            var s = calcI.ToArray();
+            double numberOne = 0;
+            double numberTwo = 0;
+            var array = calcI.ToArray();
             double sum = 0;
-            var op = s.Where(x => x == '*' || x == '-' || x == '+' || x == '/').FirstOrDefault();
+            var op = array.Where(x => x == '*' || x == '-' || x == '+' || x == '/').FirstOrDefault();
             results = ListAsChar(calcI, op);
-            numberOne = Convert.ToInt32(results[0].ToString());
-            numberTwo = Convert.ToInt32(results[1].ToString());
+            numberOne = Converter(results[0]);
+            numberTwo = Converter(results[1]);
+         
             switch (op.ToString())
             {
                 case "*":
@@ -47,8 +49,7 @@ namespace StringsNumbersAndCalculation
                     Console.WriteLine("nothing");
                     break;
             }
-
-            return $"Sum: {sum.ToString()}";
+            return $"Sum: {Math.Round(sum)}";
         }
 
         static List<string> ListAsChar(string splitToArray, char op)
@@ -57,14 +58,17 @@ namespace StringsNumbersAndCalculation
             var split = splitToArray.Split(op);
             var charOne = split[0].ToCharArray();
             var charTwo = split[1].ToCharArray();
-            var numberOne = charOne.Where(x => Char.IsDigit(x));
-            var numberTwo = charTwo.Where(x => Char.IsDigit(x));
+            var numberOne = charOne.Where(x => Char.IsDigit(x) || x == '.');
+            var numberTwo = charTwo.Where(x => Char.IsDigit(x) || x == '.');
             list.Add(string.Join("", numberOne));
             list.Add(string.Join("", numberTwo));
 
             return list;
         }
 
-        static int Converter(string convertToInt) => Convert.ToInt32(convertToInt);
+        static double Converter(string convertToDouble)
+        {
+            return double.Parse(convertToDouble, CultureInfo.InvariantCulture);
+        }
     }
 }
