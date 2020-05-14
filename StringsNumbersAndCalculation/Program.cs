@@ -20,12 +20,12 @@ namespace StringsNumbersAndCalculation
         {
             double numberOne = 0;
             double numberTwo = 0;
-            var array = calcI.ToArray();
             double sum = 0;
-            var op = array.Where(x => x == '*' || x == '-' || x == '+' || x == '/').FirstOrDefault();
-            var results = ListAsString(calcI, op);
-            numberOne = Converter(results[0]);
-            numberTwo = Converter(results[1]);
+            var results = GetNumbersFromString(calcI);
+            var op = results.Where(x => x == '*' || x == '-' || x == '+' || x == '/').FirstOrDefault();
+            var split = results.Split(op);
+            numberOne = Converter(split[0]);
+            numberTwo = Converter(split[1]);
 
             switch (op.ToString())
             {
@@ -48,9 +48,9 @@ namespace StringsNumbersAndCalculation
             return $"Sum: {Math.Round(sum)}";
         }
 
-        static string[] ListAsString(string splitToArray, char op)
+        static string GetNumbersFromString(string calcI)
         {
-            return string.Join("", splitToArray.ToCharArray().Where(x => Char.IsDigit(x) || x == '*' || x == '-' || x == '+' || x == '/' || x == '.')).Split(op);
+            return string.Join("", calcI.ToCharArray().Where(x => Char.IsDigit(x) || x == '*' || x == '-' || x == '+' || x == '/' || x == '.'));
         }
 
         static double Converter(string convertToDouble)
